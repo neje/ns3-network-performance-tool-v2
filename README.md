@@ -4,9 +4,9 @@ NS-3 network performance analysis tool on application layer. Calculates E2E pack
 INSTALLATION INSTRUCTIONS:
 Copy files from repository to ns-3 installation folder. Nothing else is needed to be done.
 These folders are changed:
-.../scratch
-.../src/applications
-.../src/applications/model
+.../scratch,
+.../src/applications,
+.../src/applications/model,
 .../src/applications/helper
 
 USAGE INSTRUCTIONS:
