@@ -35,7 +35,7 @@
 #include "ns3/packet.h"
 #include "ns3/trace-source-accessor.h"
 #include "ns3/udp-socket-factory.h"
-#include "stats-packet-sink.h"
+#include "ns3/stats-packet-sink.h"
 #include "ns3/boolean.h"
 #include "ns3/string.h"
 

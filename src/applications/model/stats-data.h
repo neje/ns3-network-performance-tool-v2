@@ -163,10 +163,6 @@ void VectorData<T>::WriteValueToFile (std::string fileName, Time time, T t, uint
   }
   out.close ();
   m_numValuesWrittenToFile++;
-  
-  NS_LOG_INFO (m_numValuesWrittenToFile << "," << flowIndex << "," 
-                << time.GetDouble () / 1000.0 << "," << seqNo << ","
-                << t.GetDouble () / 1000.0);
 }
 
 template<class T>

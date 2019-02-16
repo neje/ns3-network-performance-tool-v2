@@ -19,15 +19,13 @@
  * Modified by: Nenad Jevtic (n.jevtic@sf.bg.ac.rs), Marija Malnar (m.malnar@sf.bg.ac.rs), 2018, University of Belgrade
  */
 
-#include "stats-hist.h"
-
 #include <cmath>
 #include <algorithm>
 #include <fstream>
 
 #include "ns3/simulator.h"
 #include "ns3/log.h"
-
+#include "ns3/stats-hist.h"
 
 namespace ns3 {
 

@@ -22,7 +22,7 @@
  * Adapted from OnOffHelper and StatsSinkHelper by Mathieu Lacage <mathieu.lacage@sophia.inria.fr
  */
  
-#include "stats-helper.h"
+#include "ns3/stats-helper.h"
 #include "ns3/inet-socket-address.h"
 #include "ns3/packet-socket-address.h"
 #include "ns3/string.h"
@@ -33,7 +33,6 @@
 #include "ns3/stats-packet-source.h"
 #include "ns3/stats-packet-sink.h"
 #include "ns3/string.h"
-
 
 namespace ns3 {
 

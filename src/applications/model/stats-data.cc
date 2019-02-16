@@ -32,8 +32,9 @@
 #include "ns3/nstime.h"
 #include "ns3/config.h"
 
-#include "stats-header.h"
-#include "stats-data.h"
+#include "ns3/stats-header.h"
+#include "ns3/stats-data.h"
+
 
 namespace ns3 {
 

@@ -26,8 +26,7 @@
 #include "ns3/ipv6-address.h"
 #include "ns3/inet-socket-address.h"
 #include "ns3/inet6-socket-address.h"
-
-#include "stats-header.h"
+#include "ns3/stats-header.h"
 
 namespace ns3 {
 

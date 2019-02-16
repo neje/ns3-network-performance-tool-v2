@@ -40,10 +40,9 @@
 #include "ns3/udp-socket-factory.h"
 #include "ns3/string.h"
 #include "ns3/pointer.h"
-#include "stats-packet-source.h"
-#include "stats-header.h"
+#include "ns3/stats-packet-source.h"
+#include "ns3/stats-header.h"
 #include "ns3/boolean.h"
-
 
 namespace ns3 {
 
