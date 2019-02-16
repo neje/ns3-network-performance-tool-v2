@@ -4,7 +4,7 @@ V="1 2 3 4 5 6 7 8 9 10"
 START="1"
 STOP="400"
 
-echo Eksperiment pocinje...
+echo Starting experiment...
 
 for v in $V
 do
