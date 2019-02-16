@@ -7,8 +7,7 @@ These folders are changed:
 .../scratch,
 .../src/applications,
 .../src/applications/model,
-.../src/applications/helper
-
+.../src/applications/helper.
 There are few small differences between ns3 releases, so files that are release specific are stored in  the folder: "release specific files". 
 
 USAGE INSTRUCTIONS:
