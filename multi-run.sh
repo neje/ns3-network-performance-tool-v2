@@ -8,7 +8,7 @@ echo Starting experiment...
 
 for v in $V
 do
-  for run in {$START..$STOP}
+  for (( run=$START; run<=$STOP; run++ ))
   do
     echo 
     echo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
