@@ -9,6 +9,8 @@ These folders are changed:
 .../src/applications/model,
 .../src/applications/helper
 
+There are few small differences between ns3 releases, so files that are release specific are stored in  the folder: "release specific files". 
+
 USAGE INSTRUCTIONS:
 Usage of StatsFlows tool in NS-3 script is very easy. Users should define object of the class StatsFlows after configuring all nodes in the network and before starting the simulation process (by calling the Simulator::Run() function). At the end of simulation all data that are collected in the StatsFlows statistics object should be written into output file. This is done by using StatsFlows member function Finalize() before destroying all simulation objects: 
 int main () {
