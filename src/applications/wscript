@@ -49,6 +49,7 @@ def build(bld):
         'model/stats-packet-source.h',
         'model/stats-packet-sink.h',
         'model/seq-ts-header.h',
+        'model/stats-header.h',
         'model/stats-data.h',
         'model/stats-hist.h',
         'helper/bulk-send-helper.h',
