@@ -66,7 +66,7 @@ std::string
 NetFlowId::ToString ()
 {
   std::ostringstream oss;
-  oss << index << ": " << sourceNodeId << "-" << sourceAppId << "( ";
+  oss << flowIndex << ": " << sourceNodeId << "-" << sourceAppId << "( ";
 
   if (InetSocketAddress::IsMatchingType (sourceAddr))
     {
@@ -108,7 +108,7 @@ std::string
 NetFlowId::ToCsvString ()
 {
   std::ostringstream oss;
-  oss << index << "," << sourceNodeId << "," << sourceAppId << ",";
+  oss << flowIndex << "," << sourceNodeId << "," << sourceAppId << ",";
 
   if (InetSocketAddress::IsMatchingType (sourceAddr))
     {
@@ -166,7 +166,7 @@ FlowData::PacketReceived (Ptr<const Packet> packet)
   NS_LOG_FUNCTION (this);
 
   // If this is the first packet received at all, write file header
-  if (IsVectorFileWriteEnabled () &&  m_flowId.index == 0 && m_scalarData.totalRxPackets == 0)
+  if (IsVectorFileWriteEnabled () &&  m_flowId.flowIndex == 0 && m_scalarData.totalRxPackets == 0)
     {
       m_delayVector.WriteFileHeader (m_fileName + "-vec.csv");
     }
@@ -192,7 +192,7 @@ FlowData::PacketReceived (Ptr<const Packet> packet)
   // vector data
   if (IsVectorFileWriteEnabled ()) 
     {
-      m_delayVector.WriteValueToFile (m_fileName + "-vec.csv", m_scalarData.lastPacketReceived, m_scalarData.lastDelay, m_flowId.index, currentSequenceNumber);
+      m_delayVector.WriteValueToFile (m_fileName + "-vec.csv", m_scalarData.lastPacketReceived, m_scalarData.lastDelay, m_flowId.flowIndex, currentSequenceNumber);
     }
 }
 
@@ -245,7 +245,7 @@ FlowData::Finalize ()
   if (IsScalarFileWriteEnabled ())
   {
     std::ofstream out;
-    if (m_flowId.index == 0)
+    if (m_flowId.flowIndex == 0)
       { // all data go to one file, so when FlowId==0 then delete old file if it exists and start new file
         out.open ((m_fileName + "-sca.csv").c_str (), std::ofstream::out | std::ofstream::trunc);
       }
@@ -358,7 +358,7 @@ StatsFlows::PacketSent (Ptr<const Packet> packet)
   }
   if (i == m_flowData.size()) // not found -> new FlowId
   {
-    fid.index = i;
+    fid.flowIndex = i;
     FlowData fd (fid, m_fileName, m_scalarFileWriteEnable, m_vectorFileWriteEnable, m_histResolution);
     m_flowData.push_back (fd);
     NS_LOG_INFO ("New flow [size=" << m_flowData.size () << "]: " << m_flowData[i].GetFlowId ().ToString ());
@@ -445,24 +445,24 @@ StatsFlows::Finalize ()
   // All packets average summary
   Time endOfTransmition = (m_allFlowsScalarSummary.lastPacketSent - m_allFlowsScalarSummary.lastPacketReceived > 0)
                           ? (m_allFlowsScalarSummary.lastPacketSent) : (m_allFlowsScalarSummary.lastPacketReceived);
-  srs.apa.duration = (endOfTransmition - m_allFlowsScalarSummary.firstPacketSent).GetSeconds ();
-  srs.apa.throughput = (double)m_allFlowsScalarSummary.totalRxBytes * 8.0 / srs.apa.duration;
-  srs.apa.txPackets = m_allFlowsScalarSummary.totalTxPackets;
-  srs.apa.rxPackets = m_allFlowsScalarSummary.totalRxPackets;
-  srs.apa.lostPackets = m_allFlowsScalarSummary.totalTxPackets - m_allFlowsScalarSummary.totalRxPackets;
-  srs.apa.lostRatio = 100.0* (double)srs.apa.lostPackets / (double)srs.apa.txPackets;
-  srs.apa.e2eDelayMin = m_allFlowsScalarSummary.delayHist.GetMin ();
-  srs.apa.e2eDelayMax = m_allFlowsScalarSummary.delayHist.GetMax ();
-  srs.apa.e2eDelayAverage = m_allFlowsScalarSummary.delayHist.GetMean ();
-  srs.apa.e2eDelayMedianEstinate = m_allFlowsScalarSummary.delayHist.GetMedianEstimation ();
-  srs.apa.e2eDelayJitter = m_allFlowsScalarSummary.delayHist.GetStdDev ();
+  srs.aap.duration = (endOfTransmition - m_allFlowsScalarSummary.firstPacketSent).GetSeconds ();
+  srs.aap.throughput = (double)m_allFlowsScalarSummary.totalRxBytes * 8.0 / srs.aap.duration;
+  srs.aap.txPackets = m_allFlowsScalarSummary.totalTxPackets;
+  srs.aap.rxPackets = m_allFlowsScalarSummary.totalRxPackets;
+  srs.aap.lostPackets = m_allFlowsScalarSummary.totalTxPackets - m_allFlowsScalarSummary.totalRxPackets;
+  srs.aap.lostRatio = 100.0* (double)srs.aap.lostPackets / (double)srs.aap.txPackets;
+  srs.aap.e2eDelayMin = m_allFlowsScalarSummary.delayHist.GetMin ();
+  srs.aap.e2eDelayMax = m_allFlowsScalarSummary.delayHist.GetMax ();
+  srs.aap.e2eDelayAverage = m_allFlowsScalarSummary.delayHist.GetMean ();
+  srs.aap.e2eDelayMedianEstinate = m_allFlowsScalarSummary.delayHist.GetMedianEstimation ();
+  srs.aap.e2eDelayJitter = m_allFlowsScalarSummary.delayHist.GetStdDev ();
 
   // All flows average summary
   for (uint16_t i = 0; i < srs.numberOfFlows; i++)
     {
       NS_LOG_INFO ("FINALIZE: call Finalize() for flowId=" << i);
       // Calculates all flows average and also writes flow summary to scalar file if enabled
-      srs.afa.IterativeAdd(m_flowData[i].Finalize (), i+1);
+      srs.aaf.IterativeAdd(m_flowData[i].Finalize (), i+1);
     }
 
   if (IsScalarFileWriteEnabled ())
@@ -478,20 +478,20 @@ StatsFlows::Finalize ()
         }
       out << std::endl;
       out << "AVERAGE RESULTS, Average of all flows (" << srs.numberOfFlows << "), Average of all packets" << std::endl;
-      out << "Transmission duration [s]:," << srs.afa.duration << "," << srs.apa.duration << std::endl;
-      out << "Throughput [bps]:," << srs.afa.throughput << "," << srs.apa.throughput << std::endl;
-      out << "Tx packets:," << srs.afa.txPackets << "," << srs.apa.txPackets << std::endl;
-      out << "Rx packets:," << srs.afa.rxPackets << "," << srs.apa.rxPackets << std::endl;
-      out << "Lost packets:," << srs.afa.lostPackets << "," << srs.apa.lostPackets << std::endl;
-      out << "Lost packet ratio [%]:," << srs.afa.lostRatio << "," << srs.apa.lostRatio << std::endl;
-      out << "E2E delay - Min [ms]:," << 1000.0*srs.afa.e2eDelayMin << "," << 1000.0*srs.apa.e2eDelayMin << std::endl;
-      out << "E2E delay - Max [ms]:," << 1000.0*srs.afa.e2eDelayMax << "," << 1000.0*srs.apa.e2eDelayMax << std::endl;
-      out << "E2E delay - Average [ms]:," << 1000.0*srs.afa.e2eDelayAverage << "," << 1000.0*srs.apa.e2eDelayAverage << std::endl;
-      out << "E2E delay - Median estimate (+/-" << 1000.0 * 0.5 *m_allFlowsScalarSummary.delayHist.GetBinWidth () << ") [ms]:," << 1000.0*srs.afa.e2eDelayMedianEstinate << "," << 1000.0*srs.apa.e2eDelayMedianEstinate << std::endl;
-      out << "E2E delay - Jitter [ms]:," << 1000.0*srs.afa.e2eDelayJitter << "," << 1000.0*srs.apa.e2eDelayJitter << std::endl;
+      out << "Transmission duration [s]:," << srs.aaf.duration << "," << srs.aap.duration << std::endl;
+      out << "Throughput [bps]:," << srs.aaf.throughput << "," << srs.aap.throughput << std::endl;
+      out << "Tx packets:," << srs.aaf.txPackets << "," << srs.aap.txPackets << std::endl;
+      out << "Rx packets:," << srs.aaf.rxPackets << "," << srs.aap.rxPackets << std::endl;
+      out << "Lost packets:," << srs.aaf.lostPackets << "," << srs.aap.lostPackets << std::endl;
+      out << "Lost packet ratio [%]:," << srs.aaf.lostRatio << "," << srs.aap.lostRatio << std::endl;
+      out << "E2E delay - Min [ms]:," << 1000.0*srs.aaf.e2eDelayMin << "," << 1000.0*srs.aap.e2eDelayMin << std::endl;
+      out << "E2E delay - Max [ms]:," << 1000.0*srs.aaf.e2eDelayMax << "," << 1000.0*srs.aap.e2eDelayMax << std::endl;
+      out << "E2E delay - Average [ms]:," << 1000.0*srs.aaf.e2eDelayAverage << "," << 1000.0*srs.aap.e2eDelayAverage << std::endl;
+      out << "E2E delay - Median estimate (+/-" << 1000.0 * 0.5 *m_allFlowsScalarSummary.delayHist.GetBinWidth () << ") [ms]:," << 1000.0*srs.aaf.e2eDelayMedianEstinate << "," << 1000.0*srs.aap.e2eDelayMedianEstinate << std::endl;
+      out << "E2E delay - Jitter [ms]:," << 1000.0*srs.aaf.e2eDelayJitter << "," << 1000.0*srs.aap.e2eDelayJitter << std::endl;
       out << std::endl;
       out.close ();
-      m_allFlowsScalarSummary.delayHist.WriteToCsvFile (m_fileName + "-sca.csv", 0.0001);
+      m_allFlowsScalarSummary.delayHist.WriteToCsvFile (m_fileName + "-sca.csv", 0.0001, "E2E Delay Hist:");
     }
   Clear ();
   return srs;

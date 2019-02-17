@@ -50,7 +50,7 @@ public:
    * \brief Constructor
    * \param binWidth width of the histogram "bin".
    */
-  StatsHist (double binWidth = 1.0);
+  StatsHist (double binWidth = 1.0, std::string unit = "seconds");
 
   // Clear the Histogram Results
   /**
@@ -157,11 +157,12 @@ public:
   /**
    * \brief Print data to CSV file: 1. column is middle value of bin, 2. column is bin count
    */
-  void WriteToCsvFile (std::string fileName, double writeBinWidth) const;
+  void WriteToCsvFile (std::string fileName, double writeBinWidth, std::string description = "Hist Data:") const;
 
 private:
   std::vector<uint32_t> m_histogram; //!< Histogram data
   double m_binWidth; //!< Bin width
+  std::string m_unit;
 
   long m_count;      //!< Count value
 

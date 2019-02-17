@@ -79,8 +79,8 @@ struct RunSummary
 	{};
 
 	unsigned int numberOfFlows;
-	Summary apa; // All packets summary
-	Summary afa; // All flows summary
+	Summary aap; // All packets summary
+	Summary aaf; // All flows summary
 };
 
 /*******************************************************
@@ -88,24 +88,24 @@ struct RunSummary
  *******************************************************/
 struct ScalarData
 {
-  ScalarData (double histRes = 0.0001) :
-	  totalRxPackets (0),
-	  totalTxPackets (0),
-	  totalRxBytes (0),
-	  totalTxBytes (0),
-	  delayHist (histRes)  // 0.1 ms, default
+  ScalarData (double histRes = 0.0001) 
+    : totalRxPackets (0),
+	    totalTxPackets (0),
+	    totalRxBytes (0),
+	    totalTxBytes (0),
+	    delayHist (histRes)  // 0.1 ms, default
   {
     delayHist.Clear ();
-  };
+  }
 
   void Clear ()
   {
     totalRxPackets = 0;
     totalTxPackets = 0;
-	totalRxBytes = 0;
-	totalTxBytes = 0;
-	delayHist.Clear ();
-  };
+	  totalRxBytes = 0;
+	  totalTxBytes = 0;
+	  delayHist.Clear ();
+  }
 
   uint32_t totalRxPackets; // number of total packets receiced
   uint32_t totalTxPackets; // number of total packets sent
@@ -188,7 +188,7 @@ public:
       sinkNodeId (sinid),
       sinkAppId (siaid),
       sourceAddr (soaddr),
-      index (i)
+      flowIndex (i)
   {};
   
   std::string ToString ();
@@ -201,7 +201,7 @@ public:
   uint32_t sinkNodeId;
   uint32_t sinkAppId;
   Address sourceAddr;
-  uint16_t index;
+  uint16_t flowIndex;
 };
 
 inline bool 

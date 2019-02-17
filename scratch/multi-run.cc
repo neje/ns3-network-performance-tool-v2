@@ -44,8 +44,8 @@ NS_LOG_COMPONENT_DEFINE ("paper-for-electronics-and-electrical-engineering");
 class RoutingExperiment
 {
 public:
-  RoutingExperiment (uint64_t stopRun = 1, std::string fn = "Net-Parameters"); // default is only one simulation run
-  RoutingExperiment (uint64_t startRun, uint64_t stopRun, std::string fn = "Net-Parameters");
+  RoutingExperiment (uint64_t stopRun = 1, std::string fn = "Net"); // default is only one simulation run
+  RoutingExperiment (uint64_t startRun, uint64_t stopRun, std::string fn = "Net");
   RunSummary Run (int argc, char **argv);
   void WriteToSummaryFile (RunSummary srs);
 
@@ -71,7 +71,7 @@ RoutingExperiment::RoutingExperiment (uint64_t stopRun, std::string fn):
     m_stopRngRun (stopRun),
     m_rngRun (1),
     m_externalRngRunControl (false), // default is internal control
-    m_csvFileNamePrefix (fn) // Default name is Net-Parameters-Summary
+    m_csvFileNamePrefix (fn) // Default name is Net-Summary
 {
 	NS_ASSERT_MSG (m_startRngRun <= m_stopRngRun, "First run number must be less or equal to last.");
 }
@@ -80,7 +80,7 @@ RoutingExperiment::RoutingExperiment (uint64_t startRun, uint64_t stopRun, std::
     m_startRngRun (startRun), // default is only one simulation run
     m_stopRngRun (stopRun),
     m_rngRun (startRun),
-	m_csvFileNamePrefix (fn) // Default name is Net-Parameters-Summary
+	m_csvFileNamePrefix (fn) // Default name is Net-Summary
 {
 	NS_ASSERT_MSG (m_startRngRun <= m_stopRngRun, "First run number must be less or equal to last.");
 }
@@ -103,16 +103,16 @@ RoutingExperiment::WriteToSummaryFile (RunSummary srs)
       out.open ((m_csvFileNamePrefix + "-Summary.csv").c_str (), std::ofstream::out | std::ofstream::app);
     }
   out << m_rngRun << "," << srs.numberOfFlows << ","
-      << srs.afa.throughput << "," << srs.apa.throughput << ","
-      << srs.afa.txPackets << "," << srs.apa.txPackets << ","
-      << srs.afa.rxPackets << "," << srs.apa.rxPackets << ","
-      << srs.afa.lostPackets << "," << srs.apa.lostPackets << ","
-      << srs.afa.lostRatio << ","<< srs.apa.lostRatio << ","
-      << srs.afa.e2eDelayMin * 1000.0 << "," << srs.apa.e2eDelayMin * 1000.0 << ","
-      << srs.afa.e2eDelayMax * 1000.0 << "," << srs.apa.e2eDelayMax * 1000.0 << ","
-      << srs.afa.e2eDelayAverage * 1000.0 << "," << srs.apa.e2eDelayAverage * 1000.0 << ","
-      << srs.afa.e2eDelayMedianEstinate * 1000.0 << "," << srs.apa.e2eDelayMedianEstinate * 1000.0 << ","
-      << srs.afa.e2eDelayJitter * 1000.0 << "," << srs.apa.e2eDelayJitter * 1000.0
+      << srs.aaf.throughput << "," << srs.aap.throughput << ","
+      << srs.aaf.txPackets << "," << srs.aap.txPackets << ","
+      << srs.aaf.rxPackets << "," << srs.aap.rxPackets << ","
+      << srs.aaf.lostPackets << "," << srs.aap.lostPackets << ","
+      << srs.aaf.lostRatio << ","<< srs.aap.lostRatio << ","
+      << srs.aaf.e2eDelayMin * 1000.0 << "," << srs.aap.e2eDelayMin * 1000.0 << ","
+      << srs.aaf.e2eDelayMax * 1000.0 << "," << srs.aap.e2eDelayMax * 1000.0 << ","
+      << srs.aaf.e2eDelayAverage * 1000.0 << "," << srs.aap.e2eDelayAverage * 1000.0 << ","
+      << srs.aaf.e2eDelayMedianEstinate * 1000.0 << "," << srs.aap.e2eDelayMedianEstinate * 1000.0 << ","
+      << srs.aaf.e2eDelayJitter * 1000.0 << "," << srs.aap.e2eDelayJitter * 1000.0
       << std::endl;
   if (m_rngRun == m_stopRngRun)
     {
@@ -281,12 +281,13 @@ RoutingExperiment::Run (int argc, char **argv)
   RngSeedManager::SetRun (m_rngRun);
 
   // File name
-  if (m_csvFileNamePrefix == "Net-Parameters")
+  if (m_csvFileNamePrefix == "Net")
     {
-	    m_csvFileNamePrefix += "-" + std::to_string (simAreaX) + "mx" + std::to_string (simAreaY) + "m"
-                        + "-nodes" + std::to_string (nSources) + "_" + std::to_string (nNodes)
-                        + "-" + rate
-                        + "-packet" + std::to_string (packetSize) + "B";
+	    m_csvFileNamePrefix += "-area" + std::to_string (simAreaX) + "mx" + std::to_string (simAreaY) + "m"
+                        + "-nodes" + std::to_string (nSources) + "of" + std::to_string (nNodes)
+                        + "-speed" + std::to_string (nodeSpeed)
+                        + "-rate" + rate
+                        + "-packets" + std::to_string (packetSize) + "B";
     }
 
   // Disable fragmentation for frames below 2200 bytes

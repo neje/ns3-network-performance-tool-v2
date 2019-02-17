@@ -61,7 +61,7 @@ main (int argc, char **argv)
   double simAreaX = 2000.0; // m
   double simAreaY = 2000.0; // m
   
-  std::string m_csvFileNamePrefix ("Net-Parameters");
+  std::string m_csvFileNamePrefix ("Net");
 
   CommandLine cmd;
   cmd.AddValue ("csvFileNamePrefix", "The name prefix of the CSV output file (without .csv extension)", m_csvFileNamePrefix);
@@ -77,12 +77,13 @@ main (int argc, char **argv)
   cmd.Parse (argc, argv);
 
   // File name
-  if (m_csvFileNamePrefix == "Net-Parameters")
+  if (m_csvFileNamePrefix == "Net")
     {
-	    m_csvFileNamePrefix += "-" + std::to_string (simAreaX) + "mx" + std::to_string (simAreaY) + "m"
-                        + "-nodes" + std::to_string (nSources) + "_" + std::to_string (nNodes)
-                        + "-" + rate
-                        + "-packet" + std::to_string (packetSize) + "B";
+	    m_csvFileNamePrefix += "-area" + std::to_string (simAreaX) + "mx" + std::to_string (simAreaY) + "m"
+                        + "-nodes" + std::to_string (nSources) + "of" + std::to_string (nNodes)
+                        + "-speed" + std::to_string (nodeSpeed)
+                        + "-rate" + rate
+                        + "-packets" + std::to_string (packetSize) + "B";
     }
 
   // Disable fragmentation for frames below 2200 bytes
@@ -209,11 +210,11 @@ main (int argc, char **argv)
   RunSummary srs = oneRunStats.Finalize ();
   NS_LOG_UNCOND ("Rng Run: " << RngSeedManager::GetRun	());
   NS_LOG_UNCOND ("Number of Flows: " << srs.numberOfFlows);
-  NS_LOG_UNCOND ("Throughput [bps]: AAF " << srs.afa.throughput << ", AAP " << srs.apa.throughput);
-  NS_LOG_UNCOND ("Lost Ratio [%]: AAF " << srs.afa.lostRatio << ", AAP "<< srs.apa.lostRatio);
-  NS_LOG_UNCOND ("E2E Delay Average [ms]: AAF " << srs.afa.e2eDelayAverage * 1000.0 << ", AAP " << srs.apa.e2eDelayAverage * 1000.0);
-  NS_LOG_UNCOND ("E2E Delay Median Estimate [ms]: AAF " << srs.afa.e2eDelayMedianEstinate * 1000.0 << ", AAP " << srs.apa.e2eDelayMedianEstinate * 1000.0);
-  NS_LOG_UNCOND ("E2E Delay Jitter [ms]: AAF " << srs.afa.e2eDelayJitter * 1000.0 << ", AAP " << srs.apa.e2eDelayJitter * 1000.0);
+  NS_LOG_UNCOND ("Throughput [bps]: AAF " << srs.aaf.throughput << ", AAP " << srs.aap.throughput);
+  NS_LOG_UNCOND ("Lost Ratio [%]: AAF " << srs.aaf.lostRatio << ", AAP "<< srs.aap.lostRatio);
+  NS_LOG_UNCOND ("E2E Delay Average [ms]: AAF " << srs.aaf.e2eDelayAverage * 1000.0 << ", AAP " << srs.aap.e2eDelayAverage * 1000.0);
+  NS_LOG_UNCOND ("E2E Delay Median Estimate [ms]: AAF " << srs.aaf.e2eDelayMedianEstinate * 1000.0 << ", AAP " << srs.aap.e2eDelayMedianEstinate * 1000.0);
+  NS_LOG_UNCOND ("E2E Delay Jitter [ms]: AAF " << srs.aaf.e2eDelayJitter * 1000.0 << ", AAP " << srs.aap.e2eDelayJitter * 1000.0);
 
   // End of simulation
   Simulator::Destroy ();

@@ -31,18 +31,19 @@ namespace ns3 {
 
 NS_LOG_COMPONENT_DEFINE ("StatsHist");
 
-StatsHist::StatsHist (double binWidth) :
-  m_binWidth (binWidth),
-  m_count (0),
-  m_total (0.0),
-  m_squareTotal (0.0),
-  m_min (0.0),
-  m_max (0.0),
-  m_meanCurr (0.0),
-  m_sCurr (0.0),
-  m_varianceCurr (0.0),
-  m_meanPrev (0.0),
-  m_sPrev (0.0)
+StatsHist::StatsHist (double binWidth, std::string unit) 
+  : m_binWidth (binWidth),
+    m_unit (unit),
+    m_count (0),
+    m_total (0.0),
+    m_squareTotal (0.0),
+    m_min (0.0),
+    m_max (0.0),
+    m_meanCurr (0.0),
+    m_sCurr (0.0),
+    m_varianceCurr (0.0),
+    m_meanPrev (0.0),
+    m_sPrev (0.0)
 {
   if (m_histogram.size () != 0)
     {
@@ -232,12 +233,13 @@ StatsHist::GetMedianEstimation () const
 }
 
 void
-StatsHist::WriteToCsvFile (std::string fileName, double writeBinWidth) const
+StatsHist::WriteToCsvFile (std::string fileName, double writeBinWidth, std::string description) const
 {
   std::ofstream out;
   out.open (fileName.c_str (), std::ofstream::out | std::ofstream::app);
-  out << "Hist data:" << std::endl;
-  out << "Bin, Count]:" << std::endl;
+  out << description << std::endl;
+  out << "Resolution: " << writeBinWidth << " " << m_unit << std::endl;
+  out << "Bin:, Count:" << std::endl;
 
   if (writeBinWidth<=m_binWidth)
     {
