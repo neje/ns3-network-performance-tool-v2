@@ -73,7 +73,7 @@ Throughput [bps]:,49974.3
 Tx packets:,9765
 Rx packets:,9759
 Lost packets:,6
-Lost packet ratio [%]:,0
+Lost packet ratio [%]:,0.0614439
 E2E delay - Min [ms],0.503622
 E2E delay - Max [ms],101.396
 E2E delay - Average [ms],0.620246
@@ -101,7 +101,7 @@ Throughput [bps]:,49994.8,149921
 Tx packets:,9765,29295
 Rx packets:,9763,29289
 Lost packets:,2,6
-Lost packet ratio [%]:,0,0.0204813
+Lost packet ratio [%]:,0.0204813,0.0204813
 E2E delay - Min [ms]:,0.502784,0.50119
 E2E delay - Max [ms]:,45.0647,101.396
 E2E delay - Average [ms]:,0.543446,0.54343

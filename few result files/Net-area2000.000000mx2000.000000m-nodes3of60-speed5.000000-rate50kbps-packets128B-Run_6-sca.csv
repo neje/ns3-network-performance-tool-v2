@@ -9,7 +9,7 @@ Throughput [bps]:,49933.1
 Tx packets:,9765
 Rx packets:,9751
 Lost packets:,14
-Lost packet ratio [%]:,0
+Lost packet ratio [%]:,0.143369
 E2E delay - Min [ms],1.28893
 E2E delay - Max [ms],32.4945
 E2E delay - Average [ms],1.98949
@@ -41,7 +41,7 @@ Throughput [bps]:,49016.5
 Tx packets:,9765
 Rx packets:,9572
 Lost packets:,193
-Lost packet ratio [%]:,1
+Lost packet ratio [%]:,1.97645
 E2E delay - Min [ms],1.29113
 E2E delay - Max [ms],139.096
 E2E delay - Average [ms],2.76161
@@ -73,7 +73,7 @@ Throughput [bps]:,49999.9
 Tx packets:,9765
 Rx packets:,9764
 Lost packets:,1
-Lost packet ratio [%]:,0
+Lost packet ratio [%]:,0.0102407
 E2E delay - Min [ms],0.502644
 E2E delay - Max [ms],26.9317
 E2E delay - Average [ms],0.513036
@@ -99,9 +99,9 @@ AVERAGE RESULTS, Average of all flows (3), Average of all packets
 Transmission duration [s]:,199.968,200.188
 Throughput [bps]:,49649.8,148786
 Tx packets:,9765,29295
-Rx packets:,9695,29087
-Lost packets:,69,208
-Lost packet ratio [%]:,0.333333,0.710019
+Rx packets:,9695.67,29087
+Lost packets:,69.3333,208
+Lost packet ratio [%]:,0.710019,0.710019
 E2E delay - Min [ms]:,1.02757,0.502644
 E2E delay - Max [ms]:,66.1741,139.096
 E2E delay - Average [ms]:,1.75471,1.74796
