@@ -317,7 +317,7 @@ StatsFlows::StatsFlows (uint64_t rngRun, std::string fn, bool scalarFileWriteEna
     m_fileName (fn + "-Run_" + std::to_string (rngRun)),
     m_scalarFileWriteEnable (scalarFileWriteEnable),
     m_vectorFileWriteEnable (vectorFileWriteEnable),
-    m_histResolution (0.0001) // 0.1 ms
+    m_histogramResolution (0.0001) // 0.1 ms
 { 
   Config::ConnectWithoutContext ("/NodeList/*/ApplicationList/*/$ns3::StatsPacketSink/Rx", MakeCallback (&StatsFlows::PacketReceived, this));
   Config::ConnectWithoutContext ("/NodeList/*/ApplicationList/*/$ns3::StatsPacketSource/Tx", MakeCallback (&StatsFlows::PacketSent, this));
@@ -333,15 +333,15 @@ StatsFlows::PacketSent (Ptr<const Packet> packet)
   NS_LOG_INFO ("Packet header: " << statsHeader.ToString ());
 
   // All runs scalar statistics
-  m_allFlowsScalarSummary.totalTxPackets++; // number of transmitted packets
-  m_allFlowsScalarSummary.packetSizeInBytes = packet->GetSize (); // last packet's size
-  m_allFlowsScalarSummary.totalTxBytes += m_allFlowsScalarSummary.packetSizeInBytes; // total bytes transmitted
-  m_allFlowsScalarSummary.lastPacketSent = statsHeader.GetTs ();
-  if (m_allFlowsScalarSummary.totalTxPackets == 1) // first received packet
+  m_allPacketsStats.totalTxPackets++; // number of transmitted packets
+  m_allPacketsStats.packetSizeInBytes = packet->GetSize (); // last packet's size
+  m_allPacketsStats.totalTxBytes += m_allPacketsStats.packetSizeInBytes; // total bytes transmitted
+  m_allPacketsStats.lastPacketSent = statsHeader.GetTs ();
+  if (m_allPacketsStats.totalTxPackets == 1) // first received packet
   {
-	  m_allFlowsScalarSummary.firstPacketSent = m_allFlowsScalarSummary.lastPacketSent;
+	  m_allPacketsStats.firstPacketSent = m_allPacketsStats.lastPacketSent;
   }
-  NS_LOG_INFO ("Packet sent: " << m_allFlowsScalarSummary.totalTxPackets);
+  NS_LOG_INFO ("Packet sent: " << m_allPacketsStats.totalTxPackets);
 
   // Detecting FlowId
   uint32_t sourceNodeId = statsHeader.GetNodeId ();
@@ -359,7 +359,7 @@ StatsFlows::PacketSent (Ptr<const Packet> packet)
   if (i == m_flowData.size()) // not found -> new FlowId
   {
     fid.flowIndex = i;
-    FlowData fd (fid, m_fileName, m_scalarFileWriteEnable, m_vectorFileWriteEnable, m_histResolution);
+    FlowData fd (fid, m_fileName, m_scalarFileWriteEnable, m_vectorFileWriteEnable, m_histogramResolution);
     m_flowData.push_back (fd);
     NS_LOG_INFO ("New flow [size=" << m_flowData.size () << "]: " << m_flowData[i].GetFlowId ().ToString ());
   }
@@ -381,20 +381,20 @@ StatsFlows::PacketReceived (Ptr<const Packet> packet, uint32_t sinkNodeId, uint3
   NS_LOG_INFO ("Packet header: " << statsHeader.ToString ());
 
   // Scalar data for all runs
-  m_allFlowsScalarSummary.totalRxPackets++; // number of received packets
-  m_allFlowsScalarSummary.packetSizeInBytes = packet->GetSize (); // last packet's size
-  m_allFlowsScalarSummary.totalRxBytes += m_allFlowsScalarSummary.packetSizeInBytes; // total bytes received
-  m_allFlowsScalarSummary.lastPacketReceived = Simulator::Now ();
+  m_allPacketsStats.totalRxPackets++; // number of received packets
+  m_allPacketsStats.packetSizeInBytes = packet->GetSize (); // last packet's size
+  m_allPacketsStats.totalRxBytes += m_allPacketsStats.packetSizeInBytes; // total bytes received
+  m_allPacketsStats.lastPacketReceived = Simulator::Now ();
   Time lastPacketReceivedIsSent = statsHeader.GetTs ();
-  m_allFlowsScalarSummary.lastDelay = m_allFlowsScalarSummary.lastPacketReceived - lastPacketReceivedIsSent;
-  if (m_allFlowsScalarSummary.totalRxPackets == 1) // first received packet
+  m_allPacketsStats.lastDelay = m_allPacketsStats.lastPacketReceived - lastPacketReceivedIsSent;
+  if (m_allPacketsStats.totalRxPackets == 1) // first received packet
     {
-      m_allFlowsScalarSummary.firstPacketReceived = m_allFlowsScalarSummary.lastPacketReceived;
-      m_allFlowsScalarSummary.firstDelay = m_allFlowsScalarSummary.lastDelay; // Warning: actual first packet sent can be lost
+      m_allPacketsStats.firstPacketReceived = m_allPacketsStats.lastPacketReceived;
+      m_allPacketsStats.firstDelay = m_allPacketsStats.lastDelay; // Warning: actual first packet sent can be lost
     }
-  m_allFlowsScalarSummary.delayHist.AddValue (m_allFlowsScalarSummary.lastDelay.GetSeconds ());
-  NS_LOG_INFO ("Packet received: " << m_allFlowsScalarSummary.totalRxPackets);
-  NS_LOG_INFO (m_allFlowsScalarSummary.totalRxPackets);
+  m_allPacketsStats.delayHist.AddValue (m_allPacketsStats.lastDelay.GetSeconds ());
+  NS_LOG_INFO ("Packet received: " << m_allPacketsStats.totalRxPackets);
+  NS_LOG_INFO (m_allPacketsStats.totalRxPackets);
 
   // Detecting FlowId
   uint32_t sourceNodeId = statsHeader.GetNodeId ();
@@ -443,19 +443,19 @@ StatsFlows::Finalize ()
   srs.numberOfFlows = m_flowData.size();
 
   // All packets average summary
-  Time endOfTransmition = (m_allFlowsScalarSummary.lastPacketSent - m_allFlowsScalarSummary.lastPacketReceived > 0)
-                          ? (m_allFlowsScalarSummary.lastPacketSent) : (m_allFlowsScalarSummary.lastPacketReceived);
-  srs.aap.duration = (endOfTransmition - m_allFlowsScalarSummary.firstPacketSent).GetSeconds ();
-  srs.aap.throughput = (double)m_allFlowsScalarSummary.totalRxBytes * 8.0 / srs.aap.duration;
-  srs.aap.txPackets = m_allFlowsScalarSummary.totalTxPackets;
-  srs.aap.rxPackets = m_allFlowsScalarSummary.totalRxPackets;
-  srs.aap.lostPackets = m_allFlowsScalarSummary.totalTxPackets - m_allFlowsScalarSummary.totalRxPackets;
+  Time endOfTransmition = (m_allPacketsStats.lastPacketSent - m_allPacketsStats.lastPacketReceived > 0)
+                          ? (m_allPacketsStats.lastPacketSent) : (m_allPacketsStats.lastPacketReceived);
+  srs.aap.duration = (endOfTransmition - m_allPacketsStats.firstPacketSent).GetSeconds ();
+  srs.aap.throughput = (double)m_allPacketsStats.totalRxBytes * 8.0 / srs.aap.duration;
+  srs.aap.txPackets = m_allPacketsStats.totalTxPackets;
+  srs.aap.rxPackets = m_allPacketsStats.totalRxPackets;
+  srs.aap.lostPackets = m_allPacketsStats.totalTxPackets - m_allPacketsStats.totalRxPackets;
   srs.aap.lostRatio = 100.0* (double)srs.aap.lostPackets / (double)srs.aap.txPackets;
-  srs.aap.e2eDelayMin = m_allFlowsScalarSummary.delayHist.GetMin ();
-  srs.aap.e2eDelayMax = m_allFlowsScalarSummary.delayHist.GetMax ();
-  srs.aap.e2eDelayAverage = m_allFlowsScalarSummary.delayHist.GetMean ();
-  srs.aap.e2eDelayMedianEstinate = m_allFlowsScalarSummary.delayHist.GetMedianEstimation ();
-  srs.aap.e2eDelayJitter = m_allFlowsScalarSummary.delayHist.GetStdDev ();
+  srs.aap.e2eDelayMin = m_allPacketsStats.delayHist.GetMin ();
+  srs.aap.e2eDelayMax = m_allPacketsStats.delayHist.GetMax ();
+  srs.aap.e2eDelayAverage = m_allPacketsStats.delayHist.GetMean ();
+  srs.aap.e2eDelayMedianEstinate = m_allPacketsStats.delayHist.GetMedianEstimation ();
+  srs.aap.e2eDelayJitter = m_allPacketsStats.delayHist.GetStdDev ();
 
   // All flows average summary
   for (uint16_t i = 0; i < srs.numberOfFlows; i++)
@@ -487,11 +487,11 @@ StatsFlows::Finalize ()
       out << "E2E delay - Min [ms]:," << 1000.0*srs.aaf.e2eDelayMin << "," << 1000.0*srs.aap.e2eDelayMin << std::endl;
       out << "E2E delay - Max [ms]:," << 1000.0*srs.aaf.e2eDelayMax << "," << 1000.0*srs.aap.e2eDelayMax << std::endl;
       out << "E2E delay - Average [ms]:," << 1000.0*srs.aaf.e2eDelayAverage << "," << 1000.0*srs.aap.e2eDelayAverage << std::endl;
-      out << "E2E delay - Median estimate (+/-" << 1000.0 * 0.5 *m_allFlowsScalarSummary.delayHist.GetBinWidth () << ") [ms]:," << 1000.0*srs.aaf.e2eDelayMedianEstinate << "," << 1000.0*srs.aap.e2eDelayMedianEstinate << std::endl;
+      out << "E2E delay - Median estimate (+/-" << 1000.0 * 0.5 *m_allPacketsStats.delayHist.GetBinWidth () << ") [ms]:," << 1000.0*srs.aaf.e2eDelayMedianEstinate << "," << 1000.0*srs.aap.e2eDelayMedianEstinate << std::endl;
       out << "E2E delay - Jitter [ms]:," << 1000.0*srs.aaf.e2eDelayJitter << "," << 1000.0*srs.aap.e2eDelayJitter << std::endl;
       out << std::endl;
       out.close ();
-      m_allFlowsScalarSummary.delayHist.WriteToCsvFile (m_fileName + "-sca.csv", 0.0001, "E2E Delay Hist:");
+      m_allPacketsStats.delayHist.WriteToCsvFile (m_fileName + "-sca.csv", 0.0001, "E2E Delay Hist:");
     }
   Clear ();
   return srs;
@@ -500,7 +500,7 @@ StatsFlows::Finalize ()
 void
 StatsFlows::Clear ()
 {
-  m_allFlowsScalarSummary.Clear ();
+  m_allPacketsStats.Clear ();
   for (uint16_t i = 0; i < m_flowData.size(); i++)
     {
       m_flowData[i].Clear ();

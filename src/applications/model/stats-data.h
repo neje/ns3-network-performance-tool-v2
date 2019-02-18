@@ -61,9 +61,9 @@ struct Summary
 
 	double duration;
 	double throughput;
-	uint32_t txPackets;
-	uint32_t rxPackets;
-	uint32_t lostPackets;
+	double txPackets;
+	double rxPackets;
+	double lostPackets;
 	double lostRatio;
 	double e2eDelayMin;
 	double e2eDelayMax;
@@ -267,8 +267,8 @@ public:
 
   void SetFileName (std::string fileName) { m_fileName = fileName; };
 
-  void SetHistResolution (double res) { m_histResolution = res; };
-  double GetHistResolution () { return m_histResolution; };
+  void SetHistResolution (double res) { m_histogramResolution = res; };
+  double GetHistResolution () { return m_histogramResolution; };
 
   void SetScalarFileWriteEnable (bool b) { m_scalarFileWriteEnable = b; };
   bool IsScalarFileWriteEnabled () { return m_scalarFileWriteEnable; } ;
@@ -282,10 +282,10 @@ private:
   uint64_t m_rngRun;
   std::vector<FlowData> m_flowData;
   std::string m_fileName;
-  ScalarData m_allFlowsScalarSummary;
+  ScalarData m_allPacketsStats;
   bool m_scalarFileWriteEnable;
   bool m_vectorFileWriteEnable;
-  double m_histResolution;
+  double m_histogramResolution;
 };
 
 } // namespace ns3
