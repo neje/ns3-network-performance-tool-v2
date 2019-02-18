@@ -1,0 +1,193 @@
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+0,58,0,10.1.1.59:49153,1,0,10.1.1.2:80
+Number of Rx packets for flow:,9765, written to file:, 0, written to hist:, 9765
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.967
+Throughput [bps]:,50005
+Tx packets:,9765
+Rx packets:,9765
+Lost packets:,0
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],0.501127
+E2E delay - Max [ms],9.98905
+E2E delay - Average [ms],0.503771
+E2E delay - Median estimate (+/-0.05) [ms]:,0.55
+E2E delay - Jitter [ms],0.108241
+
+Rx,First packet [us]:,10100931
+Rx,Last packet [us]:,210058164
+Rx,Receiving duration [s]:,199.957
+Rx,Count of packets:,9765
+Rx,Total bytes:,1249920
+Rx,Throughput [bps]:,50007.5
+
+Tx,First packet [us]:,10090942
+Tx,Last packet [us]:,210057662
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+1,59,0,10.1.1.60:49153,0,0,10.1.1.1:80
+Number of Rx packets for flow:,9765, written to file:, 0, written to hist:, 9765
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.967
+Throughput [bps]:,50005
+Tx packets:,9765
+Rx packets:,9765
+Lost packets:,0
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],0.503106
+E2E delay - Max [ms],16.7732
+E2E delay - Average [ms],0.507569
+E2E delay - Median estimate (+/-0.05) [ms]:,0.55
+E2E delay - Jitter [ms],0.231063
+
+Rx,First packet [us]:,10137844
+Rx,Last packet [us]:,210088294
+Rx,Receiving duration [s]:,199.95
+Rx,Count of packets:,9765
+Rx,Total bytes:,1249920
+Rx,Throughput [bps]:,50009.2
+
+Tx,First packet [us]:,10121071
+Tx,Last packet [us]:,210087791
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+2,57,0,10.1.1.58:49153,2,0,10.1.1.3:80
+Number of Rx packets for flow:,9742, written to file:, 0, written to hist:, 9742
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.968
+Throughput [bps]:,49886.9
+Tx packets:,9765
+Rx packets:,9742
+Lost packets:,23
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],1.29147
+E2E delay - Max [ms],1048.36
+E2E delay - Average [ms],3.86077
+E2E delay - Median estimate (+/-0.05) [ms]:,1.65
+E2E delay - Jitter [ms],42.3662
+
+Rx,First packet [us]:,11274609
+Rx,Last packet [us]:,210195749
+Rx,Receiving duration [s]:,198.921
+Rx,Count of packets:,9742
+Rx,Total bytes:,1246976
+Rx,Throughput [bps]:,50149.6
+
+Tx,First packet [us]:,10227376
+Tx,Last packet [us]:,210194096
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+AVERAGE RESULTS, Average of all flows (3), Average of all packets
+Transmission duration [s]:,199.968,200.105
+Throughput [bps]:,49965.6,149794
+Tx packets:,9765,29295
+Rx packets:,9757,29272
+Lost packets:,7,23
+Lost packet ratio [%]:,0,0.0785117
+E2E delay - Min [ms]:,0.765236,0.501127
+E2E delay - Max [ms]:,358.374,1048.36
+E2E delay - Average [ms]:,1.62403,1.62228
+E2E delay - Median estimate (+/-0.05) [ms]:,0.916667,0.55
+E2E delay - Jitter [ms]:,14.2352,24.4916
+
+E2E Delay Hist:
+Resolution: 0.0001 seconds
+Bin:, Count:
+0.00055,19513
+0.00065,2
+0.00075,1
+0.00085,1
+0.00095,1
+0.00105,1
+0.00115,1
+0.00125,298
+0.00135,1509
+0.00145,1480
+0.00155,1530
+0.00165,1494
+0.00175,1464
+0.00185,1563
+0.00195,273
+0.00205,1
+0.00235,1
+0.00245,1
+0.00255,5
+0.00265,3
+0.00275,5
+0.00285,5
+0.00295,6
+0.00305,6
+0.00315,4
+0.00325,14
+0.00335,12
+0.00345,8
+0.00355,6
+0.00365,5
+0.00375,7
+0.00385,2
+0.00425,1
+0.00445,1
+0.00485,1
+0.00495,1
+0.00515,1
+0.00565,1
+0.00585,2
+0.00605,1
+0.00615,1
+0.00635,1
+0.00665,1
+0.00675,2
+0.00975,1
+0.00995,1
+0.01045,1
+0.01175,1
+0.01355,1
+0.01385,1
+0.01675,1
+0.36415,1
+0.40295,1
+0.49855,1
+0.53615,1
+0.54435,1
+0.55315,1
+0.57105,1
+0.60875,1
+0.62415,1
+0.63965,1
+0.65495,1
+0.67155,1
+0.68075,1
+0.69565,1
+0.70995,1
+0.74665,1
+0.78685,1
+0.80285,1
+0.82955,1
+0.88215,1
+0.89465,1
+0.93305,1
+0.95005,1
+1.02835,1
+1.03565,1
+1.03785,1
+1.03835,1
+1.04725,1
+1.04835,1

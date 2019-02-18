@@ -1,0 +1,164 @@
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+0,57,0,10.1.1.58:49153,2,0,10.1.1.3:80
+Number of Rx packets for flow:,9765, written to file:, 0, written to hist:, 9765
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.967
+Throughput [bps]:,50005
+Tx packets:,9765
+Rx packets:,9765
+Lost packets:,0
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],0.50119
+E2E delay - Max [ms],14.9429
+E2E delay - Average [ms],0.504414
+E2E delay - Median estimate (+/-0.05) [ms]:,0.55
+E2E delay - Jitter [ms],0.152843
+
+Rx,First packet [us]:,10383538
+Rx,Last packet [us]:,210335820
+Rx,Receiving duration [s]:,199.952
+Rx,Count of packets:,9765
+Rx,Total bytes:,1249920
+Rx,Throughput [bps]:,50008.7
+
+Tx,First packet [us]:,10368595
+Tx,Last packet [us]:,210335315
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+1,59,0,10.1.1.60:49153,0,0,10.1.1.1:80
+Number of Rx packets for flow:,9765, written to file:, 0, written to hist:, 9765
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.967
+Throughput [bps]:,50005
+Tx packets:,9765
+Rx packets:,9765
+Lost packets:,0
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],0.503541
+E2E delay - Max [ms],18.8549
+E2E delay - Average [ms],0.505679
+E2E delay - Median estimate (+/-0.05) [ms]:,0.55
+E2E delay - Jitter [ms],0.18734
+
+Rx,First packet [us]:,10426240
+Rx,Last packet [us]:,210374609
+Rx,Receiving duration [s]:,199.948
+Rx,Count of packets:,9765
+Rx,Total bytes:,1249920
+Rx,Throughput [bps]:,50009.7
+
+Tx,First packet [us]:,10407385
+Tx,Last packet [us]:,210374105
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+2,58,0,10.1.1.59:49153,1,0,10.1.1.2:80
+Number of Rx packets for flow:,9759, written to file:, 0, written to hist:, 9759
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.967
+Throughput [bps]:,49974.3
+Tx packets:,9765
+Rx packets:,9759
+Lost packets:,6
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],0.503622
+E2E delay - Max [ms],101.396
+E2E delay - Average [ms],0.620246
+E2E delay - Median estimate (+/-0.05) [ms]:,0.55
+E2E delay - Jitter [ms],1.19883
+
+Rx,First packet [us]:,10459281
+Rx,Last packet [us]:,210420251
+Rx,Receiving duration [s]:,199.961
+Rx,Count of packets:,9759
+Rx,Total bytes:,1249152
+Rx,Throughput [bps]:,49975.8
+
+Tx,First packet [us]:,10453026
+Tx,Last packet [us]:,210419746
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+AVERAGE RESULTS, Average of all flows (3), Average of all packets
+Transmission duration [s]:,199.967,200.052
+Throughput [bps]:,49994.8,149921
+Tx packets:,9765,29295
+Rx packets:,9763,29289
+Lost packets:,2,6
+Lost packet ratio [%]:,0,0.0204813
+E2E delay - Min [ms]:,0.502784,0.50119
+E2E delay - Max [ms]:,45.0647,101.396
+E2E delay - Average [ms]:,0.543446,0.54343
+E2E delay - Median estimate (+/-0.05) [ms]:,0.55,0.55
+E2E delay - Jitter [ms]:,0.513006,0.708009
+
+E2E Delay Hist:
+Resolution: 0.0001 seconds
+Bin:, Count:
+0.00055,28772
+0.00145,26
+0.00155,44
+0.00165,45
+0.00175,35
+0.00185,41
+0.00195,24
+0.00205,40
+0.00215,38
+0.00225,25
+0.00235,19
+0.00245,40
+0.00255,30
+0.00265,24
+0.00285,3
+0.00295,2
+0.00305,2
+0.00325,4
+0.00345,3
+0.00365,1
+0.00375,6
+0.00395,4
+0.00405,5
+0.00415,5
+0.00425,2
+0.00435,1
+0.00445,2
+0.00455,2
+0.00465,2
+0.00475,4
+0.00485,3
+0.00495,5
+0.00505,5
+0.00515,4
+0.00525,3
+0.00535,1
+0.00545,1
+0.00575,1
+0.00585,2
+0.00605,1
+0.00615,1
+0.00625,1
+0.00705,1
+0.00885,1
+0.00915,1
+0.01035,2
+0.01495,1
+0.01885,1
+0.02065,1
+0.03175,1
+0.10135,1

@@ -1,0 +1,349 @@
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+0,59,0,10.1.1.60:49153,0,0,10.1.1.1:80
+Number of Rx packets for flow:,9751, written to file:, 0, written to hist:, 9751
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.968
+Throughput [bps]:,49933.1
+Tx packets:,9765
+Rx packets:,9751
+Lost packets:,14
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],1.28893
+E2E delay - Max [ms],32.4945
+E2E delay - Average [ms],1.98949
+E2E delay - Median estimate (+/-0.05) [ms]:,1.85
+E2E delay - Jitter [ms],0.706667
+
+Rx,First packet [us]:,10558377
+Rx,Last packet [us]:,210227772
+Rx,Receiving duration [s]:,199.669
+Rx,Count of packets:,9751
+Rx,Total bytes:,1248128
+Rx,Throughput [bps]:,50007.8
+
+Tx,First packet [us]:,10259643
+Tx,Last packet [us]:,210226363
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+1,57,0,10.1.1.58:49153,2,0,10.1.1.3:80
+Number of Rx packets for flow:,9572, written to file:, 0, written to hist:, 9572
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.968
+Throughput [bps]:,49016.5
+Tx packets:,9765
+Rx packets:,9572
+Lost packets:,193
+Lost packet ratio [%]:,1
+E2E delay - Min [ms],1.29113
+E2E delay - Max [ms],139.096
+E2E delay - Average [ms],2.76161
+E2E delay - Median estimate (+/-0.05) [ms]:,1.65
+E2E delay - Jitter [ms],6.53591
+
+Rx,First packet [us]:,10516078
+Rx,Last packet [us]:,210409997
+Rx,Receiving duration [s]:,199.894
+Rx,Count of packets:,9572
+Rx,Total bytes:,1225216
+Rx,Throughput [bps]:,49034.6
+
+Tx,First packet [us]:,10441926
+Tx,Last packet [us]:,210408646
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+Flow Index, Source Node, Source App, Source Address, Sink Node, Sink App, Sink Address
+2,58,0,10.1.1.59:49153,1,0,10.1.1.2:80
+Number of Rx packets for flow:,9764, written to file:, 0, written to hist:, 9764
+
+Last packet length [B]:,128
+Transmission duration [s]:,199.967
+Throughput [bps]:,49999.9
+Tx packets:,9765
+Rx packets:,9764
+Lost packets:,1
+Lost packet ratio [%]:,0
+E2E delay - Min [ms],0.502644
+E2E delay - Max [ms],26.9317
+E2E delay - Average [ms],0.513036
+E2E delay - Median estimate (+/-0.05) [ms]:,0.55
+E2E delay - Jitter [ms],0.308365
+
+Rx,First packet [us]:,10507023
+Rx,Last packet [us]:,210447314
+Rx,Receiving duration [s]:,199.94
+Rx,Count of packets:,9764
+Rx,Total bytes:,1249792
+Rx,Throughput [bps]:,50006.6
+
+Tx,First packet [us]:,10480091
+Tx,Last packet [us]:,210446811
+Tx,Sending duration [s]:,199.967
+Tx,Count of packets:,9765
+Tx,Total bytes:,1249920
+Tx,Throughput [bps]:,50005.1
+
+
+AVERAGE RESULTS, Average of all flows (3), Average of all packets
+Transmission duration [s]:,199.968,200.188
+Throughput [bps]:,49649.8,148786
+Tx packets:,9765,29295
+Rx packets:,9695,29087
+Lost packets:,69,208
+Lost packet ratio [%]:,0.333333,0.710019
+E2E delay - Min [ms]:,1.02757,0.502644
+E2E delay - Max [ms]:,66.1741,139.096
+E2E delay - Average [ms]:,1.75471,1.74796
+E2E delay - Median estimate (+/-0.05) [ms]:,1.35,1.55
+E2E delay - Jitter [ms]:,2.51698,3.88918
+
+E2E Delay Hist:
+Resolution: 0.0001 seconds
+Bin:, Count:
+0.00055,9718
+0.00075,2
+0.00085,3
+0.00095,2
+0.00105,3
+0.00115,2
+0.00125,406
+0.00135,1999
+0.00145,1982
+0.00155,2126
+0.00165,2205
+0.00175,2260
+0.00185,2328
+0.00195,796
+0.00205,471
+0.00215,482
+0.00225,417
+0.00235,382
+0.00245,330
+0.00255,283
+0.00265,231
+0.00275,170
+0.00285,142
+0.00295,113
+0.00305,132
+0.00315,156
+0.00325,167
+0.00335,169
+0.00345,172
+0.00355,124
+0.00365,84
+0.00375,84
+0.00385,54
+0.00395,38
+0.00405,45
+0.00415,36
+0.00425,44
+0.00435,43
+0.00445,31
+0.00455,27
+0.00465,23
+0.00475,13
+0.00485,19
+0.00495,18
+0.00505,16
+0.00515,15
+0.00525,16
+0.00535,28
+0.00545,24
+0.00555,19
+0.00565,8
+0.00575,10
+0.00585,4
+0.00595,7
+0.00605,11
+0.00615,7
+0.00625,10
+0.00635,18
+0.00645,11
+0.00655,11
+0.00665,14
+0.00675,14
+0.00685,10
+0.00695,8
+0.00705,18
+0.00715,18
+0.00725,14
+0.00735,14
+0.00745,12
+0.00755,21
+0.00765,12
+0.00775,15
+0.00785,17
+0.00795,22
+0.00805,8
+0.00815,9
+0.00825,7
+0.00835,12
+0.00845,5
+0.00855,5
+0.00865,6
+0.00875,3
+0.00885,4
+0.00905,5
+0.00915,3
+0.00925,4
+0.00935,4
+0.00945,3
+0.00955,8
+0.00965,4
+0.00975,2
+0.00985,5
+0.00995,4
+0.01005,4
+0.01015,5
+0.01025,2
+0.01035,2
+0.01045,2
+0.01055,6
+0.01065,5
+0.01075,2
+0.01085,2
+0.01095,3
+0.01105,2
+0.01125,1
+0.01135,2
+0.01145,2
+0.01155,3
+0.01165,1
+0.01175,3
+0.01185,5
+0.01205,4
+0.01215,7
+0.01225,3
+0.01235,2
+0.01245,4
+0.01255,1
+0.01265,3
+0.01275,3
+0.01285,1
+0.01295,1
+0.01305,3
+0.01325,1
+0.01345,1
+0.01355,2
+0.01375,1
+0.01395,4
+0.01455,1
+0.01485,4
+0.01505,1
+0.01515,2
+0.01545,1
+0.01555,2
+0.01585,2
+0.01605,1
+0.01615,2
+0.01645,1
+0.01655,2
+0.01695,1
+0.01705,1
+0.01725,1
+0.01735,1
+0.01755,3
+0.01765,1
+0.01785,3
+0.01795,1
+0.01805,3
+0.01815,1
+0.01905,1
+0.01915,4
+0.01925,1
+0.01945,1
+0.01955,1
+0.01995,1
+0.02015,1
+0.02025,1
+0.02055,1
+0.02065,1
+0.02105,1
+0.02125,1
+0.02145,1
+0.02195,2
+0.02205,1
+0.02215,3
+0.02225,1
+0.02235,1
+0.02245,1
+0.02265,1
+0.02275,2
+0.02295,2
+0.02385,1
+0.02395,1
+0.02475,1
+0.02565,1
+0.02575,1
+0.02585,1
+0.02615,1
+0.02695,1
+0.02775,1
+0.02845,1
+0.02865,1
+0.02945,1
+0.03065,1
+0.03145,1
+0.03165,1
+0.03205,1
+0.03215,1
+0.03235,1
+0.03245,1
+0.03315,2
+0.03345,1
+0.03355,1
+0.03385,1
+0.03395,1
+0.03405,1
+0.03425,1
+0.03705,1
+0.03755,1
+0.03855,1
+0.03965,1
+0.04005,1
+0.04125,1
+0.04265,1
+0.04435,1
+0.04455,1
+0.04535,1
+0.04735,1
+0.04845,1
+0.05045,1
+0.05395,1
+0.05765,1
+0.06605,1
+0.07415,1
+0.07925,1
+0.10185,1
+0.10195,1
+0.10205,1
+0.10215,1
+0.10225,1
+0.10235,5
+0.10245,1
+0.10255,2
+0.10275,1
+0.10335,1
+0.10345,1
+0.10405,1
+0.10455,1
+0.10685,1
+0.11065,1
+0.11135,1
+0.11185,1
+0.11835,1
+0.12045,1
+0.12225,1
+0.13295,1
+0.13905,1
