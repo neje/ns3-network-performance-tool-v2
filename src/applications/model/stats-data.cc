@@ -215,6 +215,7 @@ FlowData::PacketSent (Ptr<const Packet> packet)
   }
 }
 
+
 Summary
 FlowData::Finalize ()
 {
@@ -321,7 +322,26 @@ StatsFlows::StatsFlows (uint64_t rngRun, std::string fn, bool scalarFileWriteEna
 { 
   Config::ConnectWithoutContext ("/NodeList/*/ApplicationList/*/$ns3::StatsPacketSink/Rx", MakeCallback (&StatsFlows::PacketReceived, this));
   Config::ConnectWithoutContext ("/NodeList/*/ApplicationList/*/$ns3::StatsPacketSource/Tx", MakeCallback (&StatsFlows::PacketSent, this));
+  // every device will have PHY callback for tracing
+  // which is used to determine the total amount of
+  // data transmitted, and then used to calculate
+  // the MAC/PHY overhead beyond the app-data
+  Config::Connect ("/NodeList/*/DeviceList/*/Phy/State/Tx", MakeCallback (&StatsFlows::PhyPacketSent, this));
+  //NodeList/[i]/DeviceList/[i]/$ns3::WifiNetDevice/Phy/$ns3::YansWifiPhy/State
 }
+ 
+
+
+void
+StatsFlows::PhyPacketSent (std::string context, Ptr<const Packet> packet, WifiMode mode, WifiPreamble preamble, uint8_t txPower)
+{
+  NS_LOG_FUNCTION (this << context << packet << "PHYTX mode=" << mode );
+  m_allPacketsStats.phyTxPkts++;
+  uint32_t pktSize = packet->GetSize ();
+  m_allPacketsStats.phyTxBytes += pktSize;
+  //NS_LOG_UNCOND ("Received PHY size=" << pktSize);
+}
+
  
 void
 StatsFlows::PacketSent (Ptr<const Packet> packet)
@@ -368,7 +388,7 @@ StatsFlows::PacketSent (Ptr<const Packet> packet)
     NS_LOG_INFO ("Flow found: [size=" << m_flowData.size () << "]: " << m_flowData[i].GetFlowId ().ToString ());
   }
   
-  m_flowData[i].PacketSent (packet); // call statistics calculations for this particular FlowId
+  m_flowData[i].PacketSent (packet); // call apps statistics calculations for this particular FlowId
 }
 
 void
@@ -451,6 +471,8 @@ StatsFlows::Finalize ()
   srs.aap.rxPackets = m_allPacketsStats.totalRxPackets;
   srs.aap.lostPackets = m_allPacketsStats.totalTxPackets - m_allPacketsStats.totalRxPackets;
   srs.aap.lostRatio = 100.0* (double)srs.aap.lostPackets / (double)srs.aap.txPackets;
+  srs.aap.phyTxPkts = m_allPacketsStats.phyTxPkts;
+  srs.aap.usefullNetTraffic = (double)m_allPacketsStats.totalTxBytes / (double)m_allPacketsStats.phyTxBytes * 100.0;
   srs.aap.e2eDelayMin = m_allPacketsStats.delayHist.GetMin ();
   srs.aap.e2eDelayMax = m_allPacketsStats.delayHist.GetMax ();
   srs.aap.e2eDelayAverage = m_allPacketsStats.delayHist.GetMean ();
@@ -484,6 +506,8 @@ StatsFlows::Finalize ()
       out << "Rx packets:," << srs.aaf.rxPackets << "," << srs.aap.rxPackets << std::endl;
       out << "Lost packets:," << srs.aaf.lostPackets << "," << srs.aap.lostPackets << std::endl;
       out << "Lost packet ratio [%]:," << srs.aaf.lostRatio << "," << srs.aap.lostRatio << std::endl;
+      out << "PHY Tx packets:," << "-," << srs.aap.phyTxPkts << std::endl;
+      out << "PHY over APP traffic ratio [%]:," << "-," << srs.aap.usefullNetTraffic << std::endl;
       out << "E2E delay - Min [ms]:," << 1000.0*srs.aaf.e2eDelayMin << "," << 1000.0*srs.aap.e2eDelayMin << std::endl;
       out << "E2E delay - Max [ms]:," << 1000.0*srs.aaf.e2eDelayMax << "," << 1000.0*srs.aap.e2eDelayMax << std::endl;
       out << "E2E delay - Average [ms]:," << 1000.0*srs.aaf.e2eDelayAverage << "," << 1000.0*srs.aap.e2eDelayAverage << std::endl;

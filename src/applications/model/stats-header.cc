@@ -160,16 +160,19 @@ StatsHeader::GetSerializedSize (void) const
   uint32_t size = 0;
   if (InetSocketAddress::IsMatchingType (m_rxAddress)) 
     {
-      size = 4+8+4+4+1+4+2; // seq+ts+nodeId+appId+addrType+ipv4+port
+      size = sizeof(uint32_t) + sizeof(uint64_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint8_t) + sizeof(Ipv4Address) + sizeof(uint16_t);
+      //size = 4+8+4+4+1+4+2; // seq+ts+nodeId+appId+addrType+ipv4+port
     }
   else if (Inet6SocketAddress::IsMatchingType (m_rxAddress))
     {
-      size = 4+8+4+4+1+16+2; // seq+ts+nodeId+appId+addrType+ipv6+port
+      size = sizeof(uint32_t) + sizeof(uint64_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint8_t) + sizeof(Ipv6Address) + sizeof(uint16_t);
+      //size = 4+8+4+4+1+16+2; // seq+ts+nodeId+appId+addrType+ipv6+port
     }
   else
     {
       NS_ASSERT_MSG (0, "GetSerializedSize: Address is not correct! Type must be InetSocketAddress or Inet6SocketAddress");
     }
+//  NS_LOG_UNCOND ("GetSerializedSize: " << size);
   return size;
 }
 
@@ -203,7 +206,7 @@ StatsHeader::Serialize (Buffer::Iterator start) const
       Ipv6Address ipAddr = inetAddr.GetIpv6 ();
       uint8_t buf[16];
       ipAddr.Serialize (buf);
-      for (int k=0; k<15; k++)
+      for (int k=0; k<16; k++)
         {
           i.WriteU8 (buf[k]); 
         }
@@ -237,7 +240,7 @@ StatsHeader::Deserialize (Buffer::Iterator start)
       uint16_t port = i.ReadNtohU16 ();
       m_rxAddress = InetSocketAddress (ipAddr, port);
     }
-  else if (addrType == 4)
+  else if (addrType == 6)
     {
       uint8_t buf[16];
       for (int k=0; k<16; k++)

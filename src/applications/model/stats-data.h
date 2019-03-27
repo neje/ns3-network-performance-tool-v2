@@ -36,8 +36,11 @@
 #include "ns3/inet6-socket-address.h"
 #include "ns3/stats-hist.h"
 #include "ns3/log.h"
+#include "ns3/wifi-mode.h"
+#include "ns3/wifi-preamble.h"
 
 namespace ns3 {
+  
 
 /*******************************************************
  * Summary & RunSummary
@@ -51,6 +54,8 @@ struct Summary
 		rxPackets (0),
 		lostPackets (0),
 		lostRatio (0),
+		phyTxPkts (0),
+		usefullNetTraffic (0),
 		e2eDelayMin (0),
 		e2eDelayMax (0),
 		e2eDelayAverage (0),
@@ -65,6 +70,8 @@ struct Summary
 	double rxPackets;
 	double lostPackets;
 	double lostRatio;
+  double phyTxPkts;
+  double usefullNetTraffic;
 	double e2eDelayMin;
 	double e2eDelayMax;
 	double e2eDelayAverage;
@@ -93,6 +100,8 @@ struct ScalarData
 	    totalTxPackets (0),
 	    totalRxBytes (0),
 	    totalTxBytes (0),
+	    phyTxPkts (0),
+	    phyTxBytes (0),
 	    delayHist (histRes)  // 0.1 ms, default
   {
     delayHist.Clear ();
@@ -104,14 +113,18 @@ struct ScalarData
     totalTxPackets = 0;
 	  totalRxBytes = 0;
 	  totalTxBytes = 0;
+    phyTxPkts = 0;
+    phyTxBytes = 0;
 	  delayHist.Clear ();
   }
 
-  uint32_t totalRxPackets; // number of total packets receiced
-  uint32_t totalTxPackets; // number of total packets sent
-  uint64_t totalRxBytes;   // total received bytes
-  uint64_t totalTxBytes;   // total transmitted bytes
+  uint32_t totalRxPackets; // number of total application packets receiced
+  uint32_t totalTxPackets; // number of total application packets sent
+  uint64_t totalRxBytes;   // total received application bytes
+  uint64_t totalTxBytes;   // total transmitted application bytes
   uint16_t packetSizeInBytes;
+  uint16_t phyTxPkts; // number of phy packets sent
+  uint64_t phyTxBytes; // phy bytes sent
   Time firstPacketSent, lastPacketSent;
   Time firstPacketReceived, lastPacketReceived;
   Time firstDelay, lastDelay;
@@ -263,6 +276,8 @@ public:
   StatsFlows (uint64_t rngRun, std::string fn = "noname", bool scalarFileWriteEnable = false, bool vectorFileWriteEnable = false);
   void PacketReceived (Ptr<const Packet> packet, uint32_t sinkNodeId, uint32_t sinkAppId, Address sourceAddr);
   void PacketSent (Ptr<const Packet> packet);
+  void PhyPacketSent (std::string context, Ptr<const Packet> packet, WifiMode mode, WifiPreamble preamble, uint8_t txPower);
+
   RunSummary Finalize ();
 
   void SetFileName (std::string fileName) { m_fileName = fileName; };
