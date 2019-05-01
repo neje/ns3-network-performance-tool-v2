@@ -506,8 +506,8 @@ StatsFlows::Finalize ()
       out << "Rx packets:," << srs.aaf.rxPackets << "," << srs.aap.rxPackets << std::endl;
       out << "Lost packets:," << srs.aaf.lostPackets << "," << srs.aap.lostPackets << std::endl;
       out << "Lost packet ratio [%]:," << srs.aaf.lostRatio << "," << srs.aap.lostRatio << std::endl;
-      out << "PHY Tx packets:," << "-," << srs.aap.phyTxPkts << std::endl;
-      out << "PHY over APP traffic ratio [%]:," << "-," << srs.aap.usefullNetTraffic << std::endl;
+      out << "PHY Tx packets:," << "," << srs.aap.phyTxPkts << std::endl;
+      out << "PHY over APP traffic ratio [%]:," << "," << srs.aap.usefullNetTraffic << std::endl;
       out << "E2E delay - Min [ms]:," << 1000.0*srs.aaf.e2eDelayMin << "," << 1000.0*srs.aap.e2eDelayMin << std::endl;
       out << "E2E delay - Max [ms]:," << 1000.0*srs.aaf.e2eDelayMax << "," << 1000.0*srs.aap.e2eDelayMax << std::endl;
       out << "E2E delay - Average [ms]:," << 1000.0*srs.aaf.e2eDelayAverage << "," << 1000.0*srs.aap.e2eDelayAverage << std::endl;
